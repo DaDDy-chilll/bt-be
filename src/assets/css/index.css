@@ -1,0 +1,397 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Act as a border */
+  .card-wrapper {
+    @apply relative overflow-hidden rounded-2xl;
+  }
+
+  /* Gradient */
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(244, 114, 182, 0.4) 0deg,
+      rgba(192, 132, 252, 0.4) 0deg,
+      transparent 80deg
+    );
+
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] animate-borderSpin content-[''];
+  }
+
+  /* Body */
+  .card-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-2xl;
+  }
+}
+
+:root {
+  --primary-color: #1f56c6;
+  --secondary-color: #386fe0;
+  --secondary-opacity-color: #bad5ff;
+  --text-color: #2e383f;
+  --secondary-text-color: #7b7b7b;
+  --background-color: #fbf9f7;
+  --secondary-background-color: #fbf9f7;
+  --alert-color: #ff0f0f;
+  --common-background-color: #1a202c;
+  --theme-color: white;
+}
+.dark {
+  --primary-color: #1f56c6;
+  --secondary-color: #386fe0;
+  --secondary-opacity-color: #1c2c50;
+  --text-color: #ffffff;
+  --secondary-text-color: #9fa9b4;
+  --background-color: #0f172a;
+  --secondary-background-color: #1c2c50;
+  --alert-color: #ff0f0f;
+  --common-background-color: #1a202c;
+  --theme-color: black;
+}
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.huge-heading {
+  font-family: "Nunito Sans", sans-serif;
+  background-color: yellow;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.main-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.sub-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: semi-bold;
+  font-size: 20px;
+}
+
+.small-bold {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: semi-bold;
+  font-size: 17px;
+}
+
+.description {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: normal;
+  font-size: 17px;
+  word-spacing: 0.1rem;
+}
+
+.small-text {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.tiny-text {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.playfair-display-sc30 {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.playfair-display-sc22 {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* hide scroll bar */
+::-webkit-scrollbar {
+  width: 0;
+}
+/* animate skeleton */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/*for card*/
+.swipe-right {
+  animation: swipeRight 0.5s ease-out forwards;
+}
+/* for card */
+.swipe-left {
+  animation: swipeLeft 0.5s ease-out forwards;
+}
+
+/* swipe right card  */
+@keyframes swipeRight {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* swipe left card  */
+@keyframes swipeLeft {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* navi link animation */
+.nav-link {
+  display: block;
+  padding: 1px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #3498db;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3498db;
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+/* end navi link animation */
+
+/*hero text spini animation*/
+
+.word-container {
+  width: 260px;
+  height: 70px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.second {
+  text-align: left;
+}
+
+.word {
+  line-height: 70px;
+  animation: spin 8s infinite;
+  font-weight: 500;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.word-static {
+  line-height: 70px;
+  font-weight: 500;
+  padding-top: 2px;
+  padding-bottom: 3px;
+}
+@keyframes spin {
+  10% {
+    transform: translateY(-112%);
+  }
+  25% {
+    transform: translateY(-100%);
+  }
+  35% {
+    transform: translateY(-212%);
+  }
+  50% {
+    transform: translateY(-200%);
+  }
+  60% {
+    transform: translateY(-312%);
+  }
+  75% {
+    transform: translateY(-300%);
+  }
+  85% {
+    transform: translateY(-412%);
+  }
+  100% {
+    transform: translateY(-400%);
+  }
+}
+
+/*end hero text spini animation*/
+
+body {
+  transition: background 5s ease-in-out;
+} /* For WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.skeleton-loading {
+  opacity: 0.7;
+  animation: skeleton-loading-animation 1s linear infinite alternate;
+}
+
+.skeleton-text-loading {
+  opacity: 0.7;
+  animation: skeleton-text-loading-animation 1s linear infinite alternate;
+}
+
+.skeleton-stroke-loading {
+  opacity: 0.7;
+  animation: skeleton-stroke-loading-animation 1s linear infinite alternate;
+}
+
+/* for 3d card */
+.container {
+  width: 300px;
+  height: 350px;
+  perspective: 800px;
+  border-radius: 10px;
+}
+
+.inner {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  transition: all 3s ease-in-out;
+  transform: rotateY(-45deg) rotateX(8deg);
+}
+
+.inner:hover {
+  transform: rotateY(0deg) rotateX(3deg);
+}
+.inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  transform: translateZ(-80px);
+}
+
+.front,
+.back,
+.left,
+.right,
+.top,
+.bottom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.left,
+.right,
+.top,
+.bottom {
+  width: 20px;
+  height: 100%;
+}
+
+.top {
+  height: 20px;
+  width: 100%;
+  top: -10px;
+  transform: rotateX(90deg);
+}
+
+.bottom {
+  height: 20px;
+  width: 100%;
+  bottom: 10px;
+  transform: rotateX(-90deg);
+}
+
+.left {
+  top: 0;
+  left: -10px;
+  transform: rotateY(90deg);
+}
+
+.right {
+  top: 0;
+  right: -10px;
+  transform: rotateY(-90deg);
+}
+
+.front {
+  background: url(./img/light_small.jpg);
+  background-size: cover;
+  transform: translateZ(10px);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(20px);
+  background: var(--card);
+}
+
+@keyframes skeleton-loading-animation {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+@keyframes skeleton-text-loading-animation {
+  0% {
+    color: hsl(200, 20%, 70%);
+  }
+  100% {
+    color: hsl(200, 20%, 95%);
+  }
+}
+
+@keyframes skeleton-stroke-loading-animation {
+  0% {
+    stroke: hsl(200, 20%, 70%);
+  }
+  100% {
+    stroke: hsl(200, 20%, 95%);
+  }
+}
