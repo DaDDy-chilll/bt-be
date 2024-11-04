@@ -11,9 +11,8 @@ datasource db {
 
 model m_users {
   id         Int      @id @default(autoincrement())
-  email      String   @unique
-  name       String?
-  password   String?
+  name       String
+  password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   del_flg    Boolean?

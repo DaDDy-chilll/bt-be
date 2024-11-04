@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
+import { response } from "../common/response";
+const user_service = new UserService();
 
 export const getAllUsers = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const users = await new UserService().getUsers();
+    const users = await user_service.getUsers();
     return res.status(200).json({
       success: true,
       data: users,
@@ -20,30 +22,24 @@ export const getAllUsers = async (
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
-    // const { id } = req.params;
-    // const user = await prisma.user.findUnique({
-    //   where: {
-    //     id: parseInt(id),
-    //   },
-    // });
-    // if (!user) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: "User not found",
-    //   });
-    // }
-    // return res.status(200).json({
-    //   success: true,
-    //   data: user,
-    // });
+    const { id } = req.user;
+    const user = await user_service.getUserById(+id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    user.deletePassword();
+    response.success(res, 200, "User fetched successfully", user);
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching user",
-      error: error,
-    });
+    response.internal(res, 500, "Error fetching user", error);
   }
 };
 
