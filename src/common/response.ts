@@ -35,10 +35,16 @@ export const response = {
   //     }
   //     res.status(status).json(response);
   //   },
-  fail: (res: any, status: number, error: string = "") => {
+  fail: (
+    res: any,
+    status: number,
+    error: string = "",
+    message: string = "Error"
+  ) => {
+
     const response: ResponseObject = {
       success: false,
-      message: "Error",
+      message: message,
       status: status,
       error: error,
     };
