@@ -13,8 +13,8 @@ export class UserService {
     return this.userRepository.findById(+id);
   }
 
-  async getUserByUsername(username: string): Promise<User | null> {
-    return this.userRepository.findByUsername(username);
+  async getUserByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findByEmail(email);
   }
   async createUser(data: CreateUserInstance): Promise<User> {
     const hashedPassword = await helper.hashPassword(data.password);

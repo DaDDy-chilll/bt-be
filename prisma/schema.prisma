@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,10 +8,348 @@ datasource db {
 }
 
 model m_users {
-  id         Int      @id @default(autoincrement())
+  id                BigInt   @id @default(autoincrement())
+  email             String   @db.VarChar(128)
+  password          String   @db.VarChar(128)
+  role_id           Int?
+  position          String?   @db.VarChar(128)
+  profile_path      String?   @db.VarChar(128)
+  dob               String?   @db.VarChar(128)
+  phone             String?  @db.VarChar(128)
+  address           String?  @db.VarChar(128)
+  emergency_contact String?  @db.VarChar(128)
+  blood_type        String?  @db.VarChar(2)
+  relegion          String?  @db.VarChar(128)
+  del_flg           Int      @default(0)
+  created_at        DateTime @default(now()) @db.Timestamp
+  updated_at        DateTime? @db.Timestamp
+}
+
+model t_orders {
+  id                    BigInt    @id @default(autoincrement())
+  order_no              String
+  order_type            Int       @default(0)
+  order_category_id     BigInt?
+  order_avaliable       Int       @default(0)
+  order_date            DateTime
+  factory_ready_date    DateTime?
+  shipping_date         DateTime?
+  delivery_day          Int?      @default(0)
+  sales_person          BigInt
+  gold_calculate_method BigInt
+  today_gold_price      BigInt
+  customer_id           BigInt
+  tax_id                BigInt
+  status                BigInt
+  del_flg               Int?      @default(0)
+  created_at            DateTime  @default(now())
+  updated_at            DateTime?
+
+  t_order_details          t_order_details[]
+  t_order_payment          t_order_payment[]
+  t_order_timelines        t_order_timelines[]
+  t_order_memos            t_order_memos[]
+  m_invoices               m_invoices[]
+  m_product_order_requests m_product_order_requests[]
+}
+
+model t_order_details {
+  id         BigInt    @id @default(autoincrement())
+  order_id   BigInt
+  product_id BigInt
+  status     BigInt
+  quantity   Int       @default(1)
+  est_price  Int
+  ayoutwat   Int
+  larkha     Int
+  sub_total  Int
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model t_order_payment {
+  id               BigInt    @id @default(autoincrement())
+  payment_category Int
+  payment_time     Int
+  order_id         BigInt
+  payment_type_id  BigInt
+  paid_amount      Int
+  remain_amount    Int
+  screenshot_path  String
+  text             String
+  del_flg          Int?      @default(0)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model m_order_status {
+  id         BigInt    @id @default(autoincrement())
   name       String
-  password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  del_flg    Boolean?
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model m_order_product_status {
+  id         BigInt    @id @default(autoincrement())
+  name       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model m_payment_types {
+  id           BigInt    @id @default(autoincrement())
+  name         String
+  account_no   String?
+  account_name String?
+  qr_path      String?
+  note         String?
+  del_flg      Int?      @default(0)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime?
+}
+
+model t_order_timelines {
+  id         BigInt    @id @default(autoincrement())
+  order_id   BigInt
+  text       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model t_order_memos {
+  id         BigInt    @id @default(autoincrement())
+  order_id   BigInt
+  memo       String
+  created_by BigInt
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model m_taxs {
+  id         BigInt    @id @default(autoincrement())
+  tax        Int
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model m_product_order_requests {
+  id         BigInt    @id @default(autoincrement())
+  order_id   BigInt
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model m_warehouses {
+  id                 BigInt    @id @default(autoincrement())
+  code               String
+  name               String
+  location           String
+  phone              String
+  contact_person     String
+  warehouse_type     BigInt
+  number_of_employee Int
+  del_flg            Int?      @default(0)
+  created_at         DateTime  @default(now())
+  updated_at         DateTime?
+}
+
+model m_warehouse_types {
+  id         BigInt    @id @default(autoincrement())
+  type       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model t_product_warehouses {
+  id           BigInt    @id @default(autoincrement())
+  product_id   BigInt
+  warehouse_id BigInt
+  quantity     Int
+  supplier_id  BigInt
+  del_flg      Int?      @default(0)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime?
+}
+
+model m_suppliers {
+  id         BigInt    @id @default(autoincrement())
+  name       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model m_today_gold_prices {
+  id            BigInt    @id @default(autoincrement())
+  gold_types_id BigInt
+  gold_weight   String
+  price         Int
+  default       Int
+  del_flg       Int?      @default(0)
+  created_at    DateTime  @default(now())
+  updated_at    DateTime?
+}
+
+model m_gold_types {
+  id         BigInt    @id @default(autoincrement())
+  name       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model m_invoices {
+  id         BigInt    @id @default(autoincrement())
+  invoice_no String
+  order_id   BigInt
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  t_orders t_orders @relation(fields: [order_id], references: [id])
+}
+
+model t_mail_marketings {
+  id          BigInt    @id @default(autoincrement())
+  customer_id BigInt?
+  email       String
+  subject     String
+  cc          String?
+  body        String
+  del_flg     Int?      @default(0)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime?
+}
+
+model m_invoice_settings {
+  id               BigInt    @id @default(autoincrement())
+  logo_path        String?
+  shop_name        String?
+  address          String?
+  theme_id         BigInt
+  phone            String?
+  note1            String?
+  note2            String?
+  note3            String?
+  signature_path   String?
+  qr_path          String?
+  bold             Int       @default(0)
+  italic           Int       @default(0)
+  underline        Int       @default(0)
+  background_image String?
+  del_flg          Int?      @default(0)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime?
+}
+
+model m_products {
+  id                  BigInt      @id @default(autoincrement())
+  code                String      @db.VarChar(6)
+  category_id         BigInt
+  type_id             BigInt
+  name                String      @db.VarChar(256)
+  length              Int?
+  length_unit_id      BigInt
+  weight              Int?
+  weight_unit_id      BigInt
+  size                Int?
+  size_unit_id        BigInt
+  total_weight        Int?
+  total_weight_unit_id BigInt
+  gold_types_id       BigInt
+  gold_color_id       BigInt
+  gems_price          Int
+  ayoutwat            Int
+  latt_kha            Int
+  created_by          BigInt
+  del_flg             Int         @default(0)
+  created_at          DateTime    @default(now()) @db.Timestamp
+  updated_at          DateTime?   @db.Timestamp
+  t_product_memos     t_product_memos[]
+  m_photos            m_photos[]
+  m_product_gems      m_product_gems[]
+  m_product_categories m_product_categories @relation(fields: [category_id], references: [id])
+  m_product_types     m_product_types       @relation(fields: [type_id], references: [id])
+}
+
+model t_product_memos {
+  id          BigInt      @id @default(autoincrement())
+  product_id  BigInt
+  memo        String      @db.VarChar(128)
+  created_by  BigInt
+  del_flg     Int         @default(0)
+  created_at  DateTime    @default(now()) @db.Timestamp
+  updated_at  DateTime?   @db.Timestamp
+  m_products  m_products  @relation(fields: [product_id], references: [id])
+}
+
+model m_photos {
+  id          BigInt      @id @default(autoincrement())
+  product_id  BigInt
+  photo_path  String      @db.VarChar(256)
+  del_flg     Int         @default(0)
+  created_at  DateTime    @default(now()) @db.Timestamp
+  updated_at  DateTime?   @db.Timestamp
+  m_products  m_products  @relation(fields: [product_id], references: [id])
+}
+
+model m_product_gems {
+  id           BigInt      @id @default(autoincrement())
+  name         String      @db.VarChar(128)
+  product_id   BigInt
+  color_id     BigInt
+  pieces       Int         @default(1)
+  weight       Int?
+  weight_unit_id BigInt
+  icon         String      @db.VarChar(256)
+  del_flg      Int         @default(0)
+  created_at   DateTime    @default(now()) @db.Timestamp
+  updated_at   DateTime?   @db.Timestamp
+  m_products   m_products  @relation(fields: [product_id], references: [id])
+  m_colors     m_colors    @relation(fields: [color_id], references: [id])
+}
+
+model m_product_types {
+  id          BigInt     @id @default(autoincrement())
+  type        String     @db.VarChar(64)
+  del_flg     Int        @default(0)
+  created_at  DateTime   @default(now()) @db.Timestamp
+  updated_at  DateTime?  @db.Timestamp
+  m_products  m_products[]
+}
+
+model m_product_categories {
+  id          BigInt     @id @default(autoincrement())
+  category    String     @db.VarChar(64)
+  del_flg     Int        @default(0)
+  created_at  DateTime   @default(now()) @db.Timestamp
+  updated_at  DateTime?  @db.Timestamp
+  m_products  m_products[]
+}
+
+model m_colors {
+  id          BigInt     @id @default(autoincrement())
+  name        String?    @db.VarChar(20)
+  del_flg     Int        @default(0)
+  created_at  DateTime   @default(now()) @db.Timestamp
+  updated_at  DateTime?  @db.Timestamp
+  m_product_gems m_product_gems[]
 }

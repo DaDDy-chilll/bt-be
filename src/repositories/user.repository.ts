@@ -3,8 +3,8 @@ import User from "../models/user.class";
 import { CreateUserInstance } from "../instances/user/create.instance";
 
 export const UserClass = (user: m_users): User => {
-  const { id, name, password } = user;
-  return new User(id, name, password);
+  const { id, email, password } = user;
+  return new User(Number(id), email, password);
 };
 export class UserRepository {
   private prisma = new PrismaClient();
@@ -20,9 +20,9 @@ export class UserRepository {
     return UserClass(user);
   }
 
-  async findByUsername(username: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<User | null> {
     const user = await this.prisma.m_users.findFirst({
-      where: { name: username },
+      where: { email: email },
     });
     if (!user) return null;
     return UserClass(user);
@@ -30,7 +30,7 @@ export class UserRepository {
 
   async create(data: CreateUserInstance): Promise<User> {
     const user = await this.prisma.m_users.create({
-      data: { name: data.username, password: data.password },
+      data: { email: data.email, password: data.password },
     });
     return UserClass(user);
   }
