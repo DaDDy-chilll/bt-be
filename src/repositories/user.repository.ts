@@ -34,12 +34,4 @@ export class UserRepository {
     });
     return UserClass(user);
   }
-
-  //   async update(id: number, data: Partial<m_users>): Promise<m_users> {
-  //     return this.prisma.m_users.update({ where: { id }, data });
-  //   }
-
-  //   async delete(id: number): Promise<m_users> {
-  //     return this.prisma.m_users.delete({ where: { id } });
-  //   }
 }
