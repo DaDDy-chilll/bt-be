@@ -29,6 +29,7 @@ apiRouter.get("/", (req: Request, res: Response) => {
 apiRouter.use("/api", router);
 app.use("/v1", apiRouter);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

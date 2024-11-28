@@ -21,5 +21,6 @@ router.put(
 
 
 router.get("/", AuthGuard, ProductController.getAllProducts);
+router.get("/:id", AuthGuard, ProductController.getProductById);
 
 export default router;

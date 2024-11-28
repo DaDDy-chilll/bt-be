@@ -1,3 +1,4 @@
+import { PhotoInstance } from "../photo/create.instance";
 import { ProductGemInstance } from "../product_gem/create.instance";
 
 export class ProductInstance {
@@ -24,6 +25,7 @@ export class ProductInstance {
   ayoutwat: number;
   latt_kha: number;
   m_product_gems: ProductGemInstance[];
+  m_photos: PhotoInstance[];
 
   created_by: bigint;
   created_at?: Date;
@@ -52,6 +54,7 @@ export class ProductInstance {
     ayoutwat: number,
     latt_kha: number,
     m_product_gems: ProductGemInstance[],
+    m_photos: PhotoInstance[],
     created_by: bigint
   ) {
     this.code = code;
@@ -74,6 +77,7 @@ export class ProductInstance {
     this.ayoutwat = ayoutwat;
     this.latt_kha = latt_kha;
     this.m_product_gems = m_product_gems;
+    this.m_photos = m_photos;
     this.created_by = created_by;
   }
 }

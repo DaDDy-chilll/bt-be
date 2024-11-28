@@ -79,3 +79,24 @@ export const getAllProducts = async (
     });
   }
 };
+
+export const getProductById = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const product_id = req.params.id;
+    const product = await product_service.getProductById(Number(product_id));
+    return res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      data: product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching product",
+      error: error,
+    });
+  }
+};

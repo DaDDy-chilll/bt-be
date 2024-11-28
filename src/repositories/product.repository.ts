@@ -7,6 +7,7 @@ export class ProductRepository {
   private prisma = new PrismaClient();
 
   async createWithGems(data: ProductInstance): Promise<m_products> {
+    console.log(data);
     return await this.prisma.$transaction(async (tx) => {
       const product = await tx.m_products.create({
         data: {
@@ -38,6 +39,19 @@ export class ProductRepository {
             del_flg: 0,
           },
         });
+      }
+      for (const photo of data.m_photos) {
+        const photo_data = await tx.m_photos.findFirst({
+          where: { id: photo.id, code: String(photo.code) },
+        });
+        if (photo_data) {
+          await tx.m_photos.update({
+            where: { id: photo.id },
+            data: {
+              product_id: product.id,
+            },
+          });
+        }
       }
 
       return product;
@@ -103,7 +117,7 @@ export class ProductRepository {
     });
   }
 
-  async getAll(page: number, limit: number){
+  async getAll(page: number, limit: number) {
     const products = await this.prisma.m_products.findMany({
       skip: (page - 1) * limit,
       take: limit,
@@ -140,5 +154,45 @@ export class ProductRepository {
 
   async getAllProductCount(): Promise<number> {
     return await this.prisma.m_products.count({ where: { del_flg: 0 } });
+  }
+  async getProductById(id: number){
+    const product = await this.prisma.m_products.findFirst({
+      where: { id: BigInt(id) },
+      include: {
+        m_product_gems: true,
+        m_photos: true,
+      },
+    });
+
+    if (!product) return null;
+
+    const serializedProduct = {
+      ...product,
+      id: Number(product.id),
+      category_id: Number(product.category_id),
+      type_id: Number(product.type_id),
+      length_unit_id: Number(product.length_unit_id),
+      weight_unit_id: Number(product.weight_unit_id),
+      size_unit_id: Number(product.size_unit_id),
+      total_weight_unit_id: Number(product.total_weight_unit_id),
+      gold_types_id: Number(product.gold_types_id),
+      gold_color_id: Number(product.gold_color_id),
+      created_by: Number(product.created_by),
+      m_product_gems: product.m_product_gems.map((gem) => ({
+        ...gem,
+        id: Number(gem.id),
+        product_id: Number(gem.product_id),
+        color_id: Number(gem.color_id),
+        weight: Number(gem.weight),
+        weight_unit_id: Number(gem.weight_unit_id),
+      })),
+      m_photos: product.m_photos.map((photo) => ({
+        ...photo,
+        id: Number(photo.id),
+        product_id: Number(photo.product_id),
+      })),
+    };
+
+    return serializedProduct;
   }
 }

@@ -143,6 +143,46 @@ export const schema = {
           "any.required": "Gem slot is required",
           "array.base": "Gem slot must be an array",
         }),
+      m_photos: Joi.array()
+        .length(6)
+        .items(
+          Joi.object({
+            id: Joi.number().required().messages({
+              "any.required": "Photo ID is required",
+              "number.base": "Photo ID must be a number",
+            }),
+            code: Joi.number().required().messages({
+              "any.required": "Photo code is required",
+              "number.base": "Photo code must be a number",
+            }),
+          })
+        )
+        .required()
+        .messages({
+          "any.required": "Photos are required",
+          "array.base": "Photos must be an array",
+          "array.length": "Only 6 photos are allowed",
+        }),
+    }),
+    deleteEntryDatas: Joi.object({
+      m_photos: Joi.array()
+        .items(
+          Joi.object({
+            id: Joi.number().required().messages({
+              "any.required": "Photo ID is required",
+              "number.base": "Photo ID must be a number",
+            }),
+            code: Joi.number().required().messages({
+              "any.required": "Photo code is required",
+              "number.base": "Photo code must be a number",
+            }),
+          })
+        )
+        .required()
+        .messages({
+          "any.required": "Photos are required",
+          "array.base": "Photos must be an array",
+        }),
     }),
   },
 };
