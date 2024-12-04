@@ -1,0 +1,32 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy
+        run: |
+          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.DROPLET_IP }} << EOF
+            export PATH=$PATH:/usr/local/bin
+            cd /var/www/betta_inv_client_be/
+            git restore .
+            git pull
+            cd backend
+            npm install
+            chmod -R 777 build
+            pm2 stop all
+            npx prisma generate
+            pm2 restart all
+          EOF

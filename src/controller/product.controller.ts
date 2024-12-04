@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ProductService } from "../services/product.service";
 import { number } from "joi";
+import { ProductInstance } from "../instances/product/create.instance";
 
 const product_service = new ProductService();
 
@@ -10,7 +11,7 @@ export const createProduct = async (
 ): Promise<any> => {
   try {
     const { id } = req.user;
-    await product_service.createProduct(req.body, BigInt(id));
+    await product_service.createProduct(req.body as ProductInstance, BigInt(id));
     return res.status(200).json({
       success: true,
       message: "Product created successfully",

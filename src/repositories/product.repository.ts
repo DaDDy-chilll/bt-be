@@ -1,13 +1,10 @@
 import { PrismaClient, m_products } from "@prisma/client";
 import { ProductInstance } from "../instances/product/create.instance";
-import { helper } from "../common/helper";
-import Product from "../models/product.class";
 
 export class ProductRepository {
   private prisma = new PrismaClient();
 
   async createWithGems(data: ProductInstance): Promise<m_products> {
-    console.log(data);
     return await this.prisma.$transaction(async (tx) => {
       const product = await tx.m_products.create({
         data: {

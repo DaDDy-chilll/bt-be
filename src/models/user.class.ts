@@ -7,8 +7,13 @@ class User {
   private created_at: string;
   private updated_at: string;
   private del_flg: boolean;
-
-  constructor(id: number | undefined, name: string, password: string) {
+  private otp_code?: string | undefined;
+  constructor(
+    id: number | undefined,
+    name: string,
+    password: string,
+    otp_code?: string | undefined
+  ) {
     this.id = id;
     this.name = name;
     this.password = password;
@@ -19,6 +24,7 @@ class User {
       timeZone: "Asia/Yangon",
     });
     this.del_flg = false;
+    this.otp_code = otp_code;
   }
 
   // Getters
@@ -46,6 +52,10 @@ class User {
     return this.del_flg;
   }
 
+  getOtpCode(): string | undefined {
+    return this.otp_code;
+  }
+
   // Setters
   setName(name: string): void {
     this.name = name;
@@ -69,6 +79,10 @@ class User {
   }
   deletePassword(): void {
     this.password = undefined;
+  }
+
+  setOtpCode(otp_code: string): void {
+    this.otp_code = otp_code;
   }
   //   static createUserInstance = (name: string, password: string): User => {
   //     return new User(name, password);
