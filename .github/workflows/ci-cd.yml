@@ -23,8 +23,8 @@ jobs:
             cd /var/www/betta_inv_client_be/
             git restore .
             git pull
-            npm install
-            chmod -R 777 build
+            sudo npm install
+            sudo chmod -R 777 build
             pm2 stop all
             npx prisma generate
             pm2 restart all
