@@ -24,7 +24,7 @@ app.use(express.urlencoded({ limit: "300mb", extended: true }));
 app.use(cookieParser());
 
 apiRouter.get("/", (req: Request, res: Response) => {
-  res.send({ message: "Betta APIs up and running updated!!!" });
+  res.send({ message: "Betta APIs up and running!!!" });
 });
 apiRouter.use("/api", router);
 app.use("/v1", apiRouter);
