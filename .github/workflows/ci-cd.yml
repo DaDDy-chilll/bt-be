@@ -23,7 +23,6 @@ jobs:
             cd /var/www/betta_inv_client_be/
             git restore .
             git pull
-            cd backend
             npm install
             chmod -R 777 build
             pm2 stop all
