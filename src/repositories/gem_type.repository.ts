@@ -14,7 +14,7 @@ export class GemTypeRepository {
       ...gemType,
       id: Number(gemType.id),
       color_id: Number(gemType.color_id),
-      weight_unit_id: Number(gemType.weight_unit_id),
+      icon_id: Number(gemType.icon_id),
     }));
 
     return castedGemTypes;

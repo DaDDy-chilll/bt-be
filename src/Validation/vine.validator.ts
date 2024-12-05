@@ -145,6 +145,80 @@ export const schema = {
         }),
     }),
   },
+  masterSetting: {
+    createTodayGoldPrice: Joi.object({
+     
+      gold_types_id: Joi.number().required().messages({
+        "any.required": "Gold type is required",
+        "number.base": "Gold type must be number",
+      }),
+      gold_weight: Joi.string().required().messages({
+        "any.required": "Gold weight is required" 
+      }),
+      unit_id: Joi.number().required().messages({
+        "any.required": "Unit is required",
+        "number.base": "Unit must be number",
+      }),
+      default : Joi.number().required().messages({
+        "any.required": "Default price is required",
+      }),
+      other_price: Joi.number().required().messages({
+        "number.base": "Other price must be number",
+      }),
+      pyinpa_price: Joi.number().required().messages({
+        "number.base": "Pyinpa price must be number",
+      }),
+      ygea_price: Joi.number().required().messages({
+        "number.base": "Ygea price must be number",
+      }),
+    }),
+    createGemType: Joi.object({
+      name: Joi.string().required().messages({
+        "any.required": "Name is required",
+        "string.base": "Name must be string",
+      }),
+      color_id: Joi.number().required().messages({
+        "any.required": "Color is required",
+        "number.base": "Color must be number",
+      }),
+      icon_id: Joi.number().required().messages({
+        "any.required": "Icon is required",
+        "number.base": "Icon must be number",
+      }),
+    }),
+    createGoldType: Joi.object({
+      name: Joi.string().required().messages({
+        "any.required": "Name is required",
+        "string.base": "Name must be string",
+      }),
+    }),
+    createUnit: Joi.object({
+      name: Joi.string().required().messages({
+        "any.required": "Name is required",
+        "string.base": "Name must be string",
+      }),
+      type: Joi.number().required().messages({
+        "any.required": "Type is required",
+        "number.base": "Type must be number",
+      }),
+      symbol: Joi.string().required().messages({
+        "any.required": "Symbol is required",
+        "string.base": "Symbol must be string",
+      }),
+    }),
+    createColor: Joi.object({
+      name: Joi.string().required().messages({
+        "any.required": "Name is required",
+        "string.base": "Name must be string",
+      }),
+    }),
+    createGemIcon: Joi.object({
+      icon_path: Joi.string().required().messages({
+        "any.required": "Icon path is required",
+        "string.base": "Icon path must be string",
+      }),
+    }),
+  },
 };
 
 export const validateBody = (schema: Joi.Schema) => {

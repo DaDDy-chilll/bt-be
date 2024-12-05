@@ -1,0 +1,28 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_route_1 = __importDefault(require("./user.route"));
+const auth_route_1 = __importDefault(require("./auth.route"));
+const product_route_1 = __importDefault(require("./product.route"));
+const product_type_route_1 = __importDefault(require("./product_type.route"));
+const product_category_route_1 = __importDefault(require("./product_category.route"));
+const product_gem_route_1 = __importDefault(require("./product_gem.route"));
+const gem_type_route_1 = __importDefault(require("./gem_type.route"));
+const color_route_1 = __importDefault(require("./color.route"));
+const unit_route_1 = __importDefault(require("./unit.route"));
+const gold_type_route_1 = __importDefault(require("./gold_type.route"));
+const router = (0, express_1.Router)();
+router.use("/users", user_route_1.default);
+router.use("/auth", auth_route_1.default);
+router.use("/products", product_route_1.default);
+router.use("/product-types", product_type_route_1.default);
+router.use("/product-categories", product_category_route_1.default);
+router.use("/product-gems", product_gem_route_1.default);
+router.use("/gem-types", gem_type_route_1.default);
+router.use("/gold-types", gold_type_route_1.default);
+router.use("/colors", color_route_1.default);
+router.use("/units", unit_route_1.default);
+exports.default = router;

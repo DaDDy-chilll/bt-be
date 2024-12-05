@@ -9,6 +9,7 @@ import GemTypeRoute from "./gem_type.route";
 import ColorRoute from "./color.route";
 import UnitRoute from "./unit.route";
 import GoldTypeRoute from "./gold_type.route";
+import MasterSettingRoute from "./master_setting.route";
 const router = Router();
 
 router.use("/users", UserRoute);
@@ -21,5 +22,5 @@ router.use("/gem-types", GemTypeRoute);
 router.use("/gold-types", GoldTypeRoute);
 router.use("/colors", ColorRoute);
 router.use("/units", UnitRoute);
-
+router.use("/master-settings", MasterSettingRoute);
 export default router;
