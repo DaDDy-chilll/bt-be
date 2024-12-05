@@ -17,7 +17,7 @@ jobs:
         run: npm ci
 
       - name: Deploy
-        env: 
+        env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SSH_USER: ${{ secrets.SSH_USER }}
           DROPLET_IP: ${{ secrets.DROPLET_IP }}
@@ -25,6 +25,12 @@ jobs:
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USER@$DROPLET_IP" << EOF
             set -e # Stop on errors
             cd /var/www/betta_inv_client_be/
+            echo "Node.js version:"
+            node -v || echo "Node.js not found"
+            echo "NPM version:"
+            npm -v || echo "NPM not found"
+            echo "PATH:"
+            echo $PATH
             git restore .
             git pull
             npm ci
