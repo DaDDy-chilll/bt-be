@@ -16,6 +16,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+       - name: Install Node.js and npm
+        run: |
+          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.DROPLET_IP }} << EOF
+            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            node -v
+            npm -v
+          EOF  
+
       - name: Deploy
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
