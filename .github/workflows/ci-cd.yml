@@ -14,17 +14,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Deploy
+        env: 
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DROPLET_IP: ${{ secrets.DROPLET_IP }}
         run: |
-          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.DROPLET_IP }} << EOF
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USER@$DROPLET_IP" << EOF
+            set -e # Stop on errors
             cd /var/www/betta_inv_client_be/
             git restore .
             git pull
+            npm ci
             npm run build
             chmod -R 777 dist
-            pm2 stop all
+            pm2 stop all || true
             npx prisma generate
             pm2 restart all
           EOF
