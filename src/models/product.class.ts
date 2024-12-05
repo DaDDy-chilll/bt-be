@@ -1,3 +1,4 @@
+import { PhotoInstance } from "../instances/photo/create.instance";
 import { ProductGemInstance } from "../instances/product_gem/create.instance";
 
 class Product {
@@ -6,13 +7,13 @@ class Product {
   public category_id: bigint;
   public type_id: bigint;
   public name: string;
-  public length: number;
-  public length_unit_id: bigint;
-  public weight: number;
-  public weight_unit_id: bigint;
-  public size: number;
-  public size_unit_id: bigint;
-  public total_weight: number;
+  public length?: number;
+  public length_unit_id?: bigint;
+  public weight?: number;
+  public weight_unit_id?: bigint;
+  public size?: number;
+  public size_unit_id?: bigint;
+  public total_weight?: number;
   public total_weight_unit_id: bigint;
   public gold_types_id: bigint;
   public gold_color_id: bigint;
@@ -23,9 +24,9 @@ class Product {
   public del_flg: boolean;
   public created_at: string;
   public updated_at: string;
-  
-  public m_product_gems?: ProductGemInstance[];
 
+  public m_product_gems?: ProductGemInstance[];
+  public m_photos?: PhotoInstance[];
   constructor(
     code: string,
     category_id: bigint,
@@ -45,7 +46,8 @@ class Product {
     ayoutwat: number,
     latt_kha: number,
     created_by: bigint,
-    m_product_gems: ProductGemInstance[]
+    m_product_gems: ProductGemInstance[],
+    m_photos: PhotoInstance[]
   ) {
     this.code = code;
     this.category_id = category_id;
@@ -73,6 +75,7 @@ class Product {
     });
     this.del_flg = false;
     this.m_product_gems = m_product_gems;
+    this.m_photos = m_photos;
   }
 }
 

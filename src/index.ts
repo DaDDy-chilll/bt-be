@@ -25,11 +25,12 @@ app.use(express.urlencoded({ limit: "300mb", extended: true }));
 app.use(cookieParser());
 
 apiRouter.get("/", (req: Request, res: Response) => {
-  res.send({ message: "Betta APIs up and running!!!" });
+  res.send({ message: "Betta APIs up and running updated!!!" });
 });
 apiRouter.use("/api", router);
 app.use("/v1", apiRouter);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

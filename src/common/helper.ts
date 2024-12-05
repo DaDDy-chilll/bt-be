@@ -4,7 +4,7 @@ import {
   TokenPayload,
   TokenPayloadInstance,
 } from "../instances/auth/token_payload.instance";
-
+const nodemailer = require("nodemailer");
 export const helper = {
   generateToken: async (
     payload: TokenPayload,
@@ -20,6 +20,13 @@ export const helper = {
       process.env.JWT_SECRET || ""
     ) as TokenPayloadInstance;
   },
+  generateResetPasswordToken: async (
+    payload: TokenPayload
+  ): Promise<string> => {
+    return jwt.sign(payload, process.env.RESET_PASSWORD_SECRET || "", {
+      expiresIn: 3600,
+    });
+  },
   hashPassword: async (password: string) => {
     return bcrypt.hash(password, 10);
   },
@@ -31,12 +38,7 @@ export const helper = {
     return logoutToken;
   },
   serialize: async (data: any[]): Promise<any> => {
-    console.log("here2");
-    console.log(JSON.stringify(data));
-
     const serialized = JSON.parse(JSON.stringify(data));
-    console.log("here3");
-    console.log(serialized);
     const convertBigIntToNumber = (obj: any): any => {
       if (Array.isArray(obj)) {
         return obj.map((item) => convertBigIntToNumber(item));
@@ -60,5 +62,15 @@ export const helper = {
     };
 
     return convertBigIntToNumber(serialized);
+  },
+
+  bigIntFormat: (data: any) => {
+    const updatedData = JSON.stringify(data, (key, value) =>
+      typeof value === "bigint" ? parseInt(value.toString()) : value
+    );
+    return JSON.parse(updatedData);
+  },
+  generateOTP: (): string => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
   },
 };

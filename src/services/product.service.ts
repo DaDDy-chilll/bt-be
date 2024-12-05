@@ -34,4 +34,8 @@ export class ProductService {
   async getAllProductCount(): Promise<number> {
     return await this.productRepository.getAllProductCount();
   }
+
+  async getProductById(id: number) {
+    return await this.productRepository.getProductById(id);
+  }
 }

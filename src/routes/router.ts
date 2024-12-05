@@ -10,8 +10,10 @@ import ColorRoute from "./color.route";
 import UnitRoute from "./unit.route";
 import GoldTypeRoute from "./gold_type.route";
 import MasterSettingRoute from "./master_setting.route";
+import FileUploadRoute from "./file_upload.route";
 const router = Router();
 
+router.use("/file-uploads", FileUploadRoute);
 router.use("/users", UserRoute);
 router.use("/auth", AuthRoute);
 router.use("/products", ProductRoute);

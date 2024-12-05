@@ -42,6 +42,43 @@ export const schema = {
             "Password must contain at least One Uppercase letter and One Number",
         }),
     }),
+    verifyOtp: Joi.object({
+      email: Joi.string().email().required().messages({
+        "any.required": "Email is required",
+        "string.base": "Email must be string",
+        "string.email": "Invalid email",
+      }),
+      otp: Joi.string()
+        .required()
+        .pattern(/^\d{4}$/)
+        .messages({
+          "any.required": "Otp is required",
+          "string.base": "Otp must be string",
+          "string.pattern.base": "Otp must be 4 digits only",
+        }),
+    }),
+    resetPassword: Joi.object({
+      password: Joi.string()
+        .min(8)
+        .max(16)
+        .pattern(new RegExp("^(?=.*[A-Z])(?=.*\\d).+$"))
+        .required()
+        .messages({
+          "any.required": "Password is required",
+          "string.base": "Password must be string",
+          "string.min": "Password must be at least 8 characters",
+          "string.max": "Password must be at most 32 characters",
+          "string.pattern.base":
+            "Password must contain at least One Uppercase letter and One Number",
+        }),
+      confirm_password: Joi.string()
+        .valid(Joi.ref("password"))
+        .required()
+        .messages({
+          "any.required": "Confirm password is required",
+          "any.only": "Confirm password must match password",
+        }),
+    }),
   },
   product: {
     create: Joi.object({
@@ -142,6 +179,46 @@ export const schema = {
         .messages({
           "any.required": "Gem slot is required",
           "array.base": "Gem slot must be an array",
+        }),
+      m_photos: Joi.array()
+        .length(6)
+        .items(
+          Joi.object({
+            id: Joi.number().required().messages({
+              "any.required": "Photo ID is required",
+              "number.base": "Photo ID must be a number",
+            }),
+            code: Joi.number().required().messages({
+              "any.required": "Photo code is required",
+              "number.base": "Photo code must be a number",
+            }),
+          })
+        )
+        .required()
+        .messages({
+          "any.required": "Photos are required",
+          "array.base": "Photos must be an array",
+          "array.length": "Only 6 photos are allowed",
+        }),
+    }),
+    deleteEntryDatas: Joi.object({
+      m_photos: Joi.array()
+        .items(
+          Joi.object({
+            id: Joi.number().required().messages({
+              "any.required": "Photo ID is required",
+              "number.base": "Photo ID must be a number",
+            }),
+            code: Joi.number().required().messages({
+              "any.required": "Photo code is required",
+              "number.base": "Photo code must be a number",
+            }),
+          })
+        )
+        .required()
+        .messages({
+          "any.required": "Photos are required",
+          "array.base": "Photos must be an array",
         }),
     }),
   },

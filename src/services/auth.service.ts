@@ -25,4 +25,11 @@ export class AuthService {
       name: decoded.name,
     });
   }
+
+  async resetPasswordToken(user: User): Promise<string> {
+    return helper.generateResetPasswordToken({
+      id: user.getId(),
+      name: user.getName(),
+    });
+  }
 }

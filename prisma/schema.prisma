@@ -20,6 +20,7 @@ model m_users {
   emergency_contact String?  @db.VarChar(128)
   blood_type        String?  @db.VarChar(2)
   relegion          String?  @db.VarChar(128)
+  otp_code          String?  @db.VarChar(128)
   del_flg           Int      @default(0)
   created_at        DateTime @default(now()) @db.Timestamp
   updated_at        DateTime? @db.Timestamp
@@ -289,9 +290,11 @@ model m_products {
   del_flg             Int         @default(0)
   created_at          DateTime    @default(now()) @db.Timestamp
   updated_at          DateTime?   @db.Timestamp
+  
   t_product_memos     t_product_memos[]
   m_photos            m_photos[]
   m_product_gems      m_product_gems[]
+
   m_product_categories m_product_categories @relation(fields: [category_id], references: [id])
   m_product_types     m_product_types       @relation(fields: [type_id], references: [id])
 }
@@ -309,12 +312,13 @@ model t_product_memos {
 
 model m_photos {
   id          BigInt      @id @default(autoincrement())
-  product_id  BigInt
+  product_id  BigInt?
+  code        String?  @db.VarChar(256)
   photo_path  String      @db.VarChar(256)
   del_flg     Int         @default(0)
   created_at  DateTime    @default(now()) @db.Timestamp
   updated_at  DateTime?   @db.Timestamp
-  m_products  m_products  @relation(fields: [product_id], references: [id])
+  m_products  m_products?  @relation(fields: [product_id], references: [id])
 }
 
 model m_product_gems {
@@ -393,5 +397,21 @@ model m_units {
   created_at  DateTime   @default(now()) @db.Timestamp
   updated_at  DateTime?  @db.Timestamp
   m_today_gold_prices m_today_gold_prices[]
+}
+
+model m_mail_settings {
+  id                   BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  mailer               String    @db.VarChar(255)
+  host                 String    @db.VarChar(255)
+  port                 Int
+  username             String    @db.VarChar(255)
+  password             String    @db.VarChar(255)
+  encryption           String    @db.VarChar(255)     
+  fromAddress          String    @db.VarChar(255)      
+  fromName             String    @db.VarChar(1000)
+  del_flg              Int       @default(0) @db.TinyInt
+  created_at           DateTime?
+  updated_at           DateTime?
+ 
 }
 
