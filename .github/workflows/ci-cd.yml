@@ -28,7 +28,7 @@ jobs:
             export NVM_DIR="\$HOME/.nvm"
             [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" # Load nvm
             [ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion" # Load nvm bash_completion
-            nvm use 20.1.0
+            nvm use 21.1.0
             cd /var/www/betta_inv_client_be/
             echo "Node.js version:"
             node -v || echo "Node.js not found"
