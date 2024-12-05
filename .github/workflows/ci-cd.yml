@@ -16,15 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-       - name: Install Node.js and npm
-        run: |
-          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.DROPLET_IP }} << EOF
-            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            node -v
-            npm -v
-          EOF  
-
       - name: Deploy
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
@@ -33,6 +24,11 @@ jobs:
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USER@$DROPLET_IP" << EOF
             set -e # Stop on errors
+
+            export NVM_DIR="\$HOME/.nvm"
+            [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh" # Load nvm
+            [ -s "\$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion" # Load nvm bash_completion
+            nvm use 20.1.0
             cd /var/www/betta_inv_client_be/
             echo "Node.js version:"
             node -v || echo "Node.js not found"
