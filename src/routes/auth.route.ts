@@ -15,7 +15,7 @@ router.post(
 router.get("/refresh-token", AuthGuard, AuthController.refreshToken);
 router.get("/logout", AuthGuard, AuthController.logout);
 router.get("/who-am-i", AuthGuard, UserController.getUserById);
-router.get("/forgot-password", AuthController.forgotPassword);
+router.post("/forgot-password", AuthController.forgotPassword);
 router.post(
   "/verify-otp",
   validateBody(schema.auth.verifyOtp),

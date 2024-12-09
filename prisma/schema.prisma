@@ -415,3 +415,18 @@ model m_mail_settings {
  
 }
 
+model m_gold_calculate_method {
+  id                   BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  method               Int      
+  weight               String    @db.VarChar(32)
+  category             String    @db.VarChar(32)
+  one_kyatt            Int
+  five_muu             Int
+  one_mat              Int
+  one_mu               Int
+  one_pae              Int
+  del_flg              Int       @default(0) @db.TinyInt
+  created_at           DateTime?
+  updated_at           DateTime?
+ 
+}

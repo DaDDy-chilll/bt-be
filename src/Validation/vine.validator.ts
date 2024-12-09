@@ -224,19 +224,18 @@ export const schema = {
   },
   masterSetting: {
     createTodayGoldPrice: Joi.object({
-     
       gold_types_id: Joi.number().required().messages({
         "any.required": "Gold type is required",
         "number.base": "Gold type must be number",
       }),
       gold_weight: Joi.string().required().messages({
-        "any.required": "Gold weight is required" 
+        "any.required": "Gold weight is required",
       }),
       unit_id: Joi.number().required().messages({
         "any.required": "Unit is required",
         "number.base": "Unit must be number",
       }),
-      default : Joi.number().required().messages({
+      default: Joi.number().required().messages({
         "any.required": "Default price is required",
       }),
       other_price: Joi.number().required().messages({
@@ -294,6 +293,28 @@ export const schema = {
         "any.required": "Icon path is required",
         "string.base": "Icon path must be string",
       }),
+    }),
+  },
+  tools: {
+    create: Joi.object({
+      method: Joi.number().integer().required(),
+      weight: Joi.string().max(32).required(),
+      category: Joi.string().max(32).required(),
+      one_kyatt: Joi.number().integer().required(),
+      five_muu: Joi.number().integer().required(),
+      one_mat: Joi.number().integer().required(),
+      one_mu: Joi.number().integer().required(),
+      one_pae: Joi.number().integer().required(), // integer, required
+    }),
+    update: Joi.object({
+      method: Joi.number().integer().optional(),
+      weight: Joi.string().max(32).optional(),
+      category: Joi.string().max(32).optional(),
+      one_kyatt: Joi.number().integer().optional(),
+      five_muu: Joi.number().integer().optional(),
+      one_mat: Joi.number().integer().optional(),
+      one_mu: Joi.number().integer().optional(),
+      one_pae: Joi.number().integer().optional(),
     }),
   },
 };
