@@ -80,4 +80,10 @@ export class ToolsRepository {
       },
     });
   }
+
+  async getToolByMethodId(id: number) {
+    return await this.prisma.m_gold_calculate_method.findFirst({
+      where: { method: id },
+    });
+  }
 }

@@ -38,4 +38,8 @@ export class ProductService {
   async getProductById(id: number) {
     return await this.productRepository.getProductById(id);
   }
+
+  async getProductByProductId(product_id: number) {
+    return await this.productRepository.getProductByProductId(product_id);
+  }
 }

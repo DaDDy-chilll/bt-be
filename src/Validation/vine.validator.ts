@@ -317,6 +317,34 @@ export const schema = {
       one_pae: Joi.number().integer().optional(),
     }),
   },
+  order: {
+    create: Joi.object({
+      order_type: Joi.number().integer().required(),
+      order_category_id: Joi.number().integer().required(),
+      order_available: Joi.number().integer().required(),
+      order_date: Joi.date().required(),
+      factory_ready_date: Joi.date().required(),
+      shipping_date: Joi.date().required(),
+      delivery_day: Joi.number().integer().required(),
+      sales_person: Joi.number().integer().required(),
+      gold_calculate_method: Joi.number().integer().required(),
+      today_gold_price: Joi.number().integer().required(),
+      customer_id: Joi.number().integer().required(),
+      tax_id: Joi.number().integer().required(),
+      m_order_products: Joi.array()
+        .items(
+          Joi.object({
+            product_id: Joi.number().integer().required(),
+            quantity: Joi.number().integer().required(),
+            est_price: Joi.number().integer().required(),
+            ayoutwat: Joi.number().integer().required(),
+            larkha: Joi.number().integer().required(),
+            sub_total: Joi.number().integer().required(),
+          })
+        )
+        .required(),
+    }),
+  },
 };
 
 export const validateBody = (schema: Joi.Schema) => {

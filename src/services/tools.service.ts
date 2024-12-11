@@ -28,4 +28,8 @@ export class ToolsService {
   async updateTool(tool: Tools, id: string) {
     return await this.toolsRepository.updateTool(tool, id);
   }
+
+  async getToolByMethodId(id: number) {
+    return await this.toolsRepository.getToolByMethodId(id);
+  }
 }

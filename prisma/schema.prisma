@@ -52,6 +52,17 @@ model t_orders {
   t_order_memos            t_order_memos[]
   m_invoices               m_invoices[]
   m_product_order_requests m_product_order_requests[]
+
+  m_order_category         m_order_categories? @relation(fields: [order_category_id], references: [id])
+}
+
+model m_order_categories {
+  id         BigInt    @id @default(autoincrement())
+  name       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  t_orders   t_orders[]
 }
 
 model t_order_details {
@@ -335,6 +346,31 @@ model m_product_gems {
   updated_at   DateTime?   @db.Timestamp
   m_products   m_products  @relation(fields: [product_id], references: [id])
   m_colors     m_colors    @relation(fields: [color_id], references: [id])
+}
+
+model m_customers {
+  id           BigInt      @id @default(autoincrement())
+  first_name   String      @db.VarChar(128)
+  last_name    String      @db.VarChar(128)
+  phone        String      @db.VarChar(128)
+  nrc          String      @db.VarChar(128)
+  email        String      @db.VarChar(128)
+  social       String      @db.VarChar(128)
+  level_id     BigInt      @default(0)
+  del_flg      Int         @default(0)
+  created_at   DateTime    @default(now()) @db.Timestamp
+  updated_at   DateTime?   @db.Timestamp
+  m_levels     m_levels    @relation(fields: [level_id], references: [id])
+
+}
+
+model m_levels {
+  id         BigInt    @id @default(autoincrement())
+  name       String
+  del_flg    Int?      @default(0)
+  created_at DateTime  @default(now()) @db.Timestamp
+  updated_at DateTime? @db.Timestamp
+  m_customers m_customers[]
 }
 
 model m_product_types {

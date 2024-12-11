@@ -152,7 +152,14 @@ export class ProductRepository {
   async getAllProductCount(): Promise<number> {
     return await this.prisma.m_products.count({ where: { del_flg: 0 } });
   }
-  async getProductById(id: number){
+
+  async getProductByProductId(product_id: number) {
+    return await this.prisma.m_products.findFirst({
+      where: { id: BigInt(product_id) },
+    });
+  }
+
+  async getProductById(id: number) {
     const product = await this.prisma.m_products.findFirst({
       where: { id: BigInt(id) },
       include: {
