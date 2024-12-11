@@ -10,13 +10,6 @@ app.use(helmet());
 app.use(
   cors({
     origin: "*",
-    allowedHeaders: [
-      "Accept-Version",
-      "Authorization",
-      "Credentials",
-      "Content-Type",
-      "Accept-Language",
-    ],
   })
 );
 require("dotenv").config();
@@ -34,4 +27,3 @@ const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
