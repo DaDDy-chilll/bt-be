@@ -10,14 +10,14 @@ router.get("/", AuthGuard, ToolsController.getAllTools);
 router.post(
   "/",
   AuthGuard,
-  validateBody(schema.tools.create),
+  // validateBody(schema.tools.create),
   ToolsController.createTool
 );
 
 router.put(
   "/:id",
   AuthGuard,
-  validateBody(schema.tools.update),
+  // validateBody(schema.tools.update),
   ToolsController.updateTool
 );
 

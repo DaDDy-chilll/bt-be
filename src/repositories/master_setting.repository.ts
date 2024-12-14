@@ -162,8 +162,13 @@ export class MasterSettingRepository {
     return units;
   }
 
-  async getAllUnit() {
-    const units = await this.prisma.m_units.findMany();
+
+
+  async getAllUnit(type?: number) {
+    const where = type ? { type: type, del_flg: 0 } : { del_flg: 0 };
+    const units = await this.prisma.m_units.findMany({
+      where: where,
+    });
     const castedUnits = units.map((unit) => ({
       ...unit,
       id: Number(unit.id),

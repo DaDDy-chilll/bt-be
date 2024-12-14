@@ -283,8 +283,9 @@ export const deleteUnit = async (req: Request, res: Response): Promise<any> => {
 };
 
 export const getAllUnit = async (req: Request, res: Response): Promise<any> => {
+  const type = req.query.type as string ;
   try {
-    const unit = await masterSetting_service.getAllUnit();
+    const unit = await masterSetting_service.getAllUnit(Number(type));
     return res.status(200).json({
       success: true,
       data: unit,

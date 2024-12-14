@@ -68,8 +68,8 @@ export class MasterSettingService {
     return await this.masterSettingRepository.createUnit(unit);
   }
 
-  async getAllUnit() {
-    return await this.masterSettingRepository.getAllUnit();
+  async getAllUnit(type?: number) {
+    return await this.masterSettingRepository.getAllUnit(type);
   }
 
   async updateUnit(unit: UnitInstance, id: bigint) {

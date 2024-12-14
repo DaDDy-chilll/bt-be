@@ -11,7 +11,7 @@ model m_users {
   id                BigInt   @id @default(autoincrement())
   email             String   @db.VarChar(128)
   password          String   @db.VarChar(128)
-  name              String   @db.VarChar(128)
+  name              String?  @db.VarChar(128)
   role_id           Int?
   position          String?   @db.VarChar(128)
   profile_path      String?   @db.VarChar(128)

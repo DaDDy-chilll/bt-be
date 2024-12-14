@@ -8,7 +8,7 @@ import { AuthGuard } from "../AuthGuard/auth.guard";
 router.post(
   "/",
   AuthGuard,
-  validateBody(schema.order.create),
+  // validateBody(schema.order.create),
   OrderController.createOrder
 );
 
