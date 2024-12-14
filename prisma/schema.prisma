@@ -11,6 +11,7 @@ model m_users {
   id                BigInt   @id @default(autoincrement())
   email             String   @db.VarChar(128)
   password          String   @db.VarChar(128)
+  name              String   @db.VarChar(128)
   role_id           Int?
   position          String?   @db.VarChar(128)
   profile_path      String?   @db.VarChar(128)
@@ -24,6 +25,16 @@ model m_users {
   del_flg           Int      @default(0)
   created_at        DateTime @default(now()) @db.Timestamp
   updated_at        DateTime? @db.Timestamp
+}
+
+model m_shop{
+  id BigInt @id @default(autoincrement())
+  name String @db.VarChar(128)
+  address String @db.VarChar(128)
+  phone String @db.VarChar(128)
+  del_flg Int @default(0)
+  created_at DateTime @default(now()) @db.Timestamp
+  updated_at DateTime? @db.Timestamp
 }
 
 model t_orders {
@@ -201,7 +212,7 @@ model m_suppliers {
 model m_today_gold_prices {
   id            BigInt    @id @default(autoincrement())
   gold_types_id BigInt
-  gold_weight   String
+  gold_weight   Int
   other_price   Int?
   pyinpa_price  Int?
   ygea_price    Int?

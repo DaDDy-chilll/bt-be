@@ -229,7 +229,7 @@ export const schema = {
         "any.required": "Gold type is required",
         "number.base": "Gold type must be number",
       }),
-      gold_weight: Joi.string().required().messages({
+      gold_weight: Joi.number().required().messages({
         "any.required": "Gold weight is required" 
       }),
       unit_id: Joi.number().required().messages({

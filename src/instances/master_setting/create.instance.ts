@@ -1,6 +1,6 @@
 export interface ITodayGoldPrice {
   gold_types_id: bigint;
-  gold_weight: string;
+  gold_weight: number;
   other_price?: number;
   pyinpa_price?: number;
   ygea_price?: number;
@@ -11,7 +11,7 @@ export interface ITodayGoldPrice {
 export class TodayGoldPriceInstance implements ITodayGoldPrice {
   id?: bigint;
   gold_types_id: bigint;
-  gold_weight: string;
+  gold_weight: number;
   other_price?: number;
   pyinpa_price?: number;
   ygea_price?: number;
@@ -23,7 +23,7 @@ export class TodayGoldPriceInstance implements ITodayGoldPrice {
 
   constructor(
     gold_types_id: bigint,
-    gold_weight: string,
+    gold_weight: number,
     unit_id: bigint,
     other_price: number | undefined,
     pyinpa_price: number | undefined,
