@@ -224,7 +224,6 @@ export const schema = {
   },
   masterSetting: {
     createTodayGoldPrice: Joi.object({
-     
       gold_types_id: Joi.number().required().messages({
         "any.required": "Gold type is required",
         "number.base": "Gold type must be number",
@@ -236,7 +235,7 @@ export const schema = {
         "any.required": "Unit is required",
         "number.base": "Unit must be number",
       }),
-      default : Joi.number().required().messages({
+      default: Joi.number().required().messages({
         "any.required": "Default price is required",
       }),
       other_price: Joi.number().required().messages({
@@ -294,6 +293,56 @@ export const schema = {
         "any.required": "Icon path is required",
         "string.base": "Icon path must be string",
       }),
+    }),
+  },
+  tools: {
+    create: Joi.object({
+      method: Joi.number().integer().required(),
+      weight: Joi.string().max(32).required(),
+      category: Joi.string().max(32).required(),
+      one_kyatt: Joi.number().integer().required(),
+      five_muu: Joi.number().integer().required(),
+      one_mat: Joi.number().integer().required(),
+      one_mu: Joi.number().integer().required(),
+      one_pae: Joi.number().integer().required(), // integer, required
+    }),
+    update: Joi.object({
+      method: Joi.number().integer().optional(),
+      weight: Joi.string().max(32).optional(),
+      category: Joi.string().max(32).optional(),
+      one_kyatt: Joi.number().integer().optional(),
+      five_muu: Joi.number().integer().optional(),
+      one_mat: Joi.number().integer().optional(),
+      one_mu: Joi.number().integer().optional(),
+      one_pae: Joi.number().integer().optional(),
+    }),
+  },
+  order: {
+    create: Joi.object({
+      order_type: Joi.number().integer().required(),
+      order_category_id: Joi.number().integer().required(),
+      order_available: Joi.number().integer().required(),
+      order_date: Joi.date().required(),
+      factory_ready_date: Joi.date().required(),
+      shipping_date: Joi.date().required(),
+      delivery_day: Joi.number().integer().required(),
+      sales_person: Joi.number().integer().required(),
+      gold_calculate_method: Joi.number().integer().required(),
+      today_gold_price: Joi.number().integer().required(),
+      customer_id: Joi.number().integer().required(),
+      tax_id: Joi.number().integer().required(),
+      m_order_products: Joi.array()
+        .items(
+          Joi.object({
+            product_id: Joi.number().integer().required(),
+            quantity: Joi.number().integer().required(),
+            est_price: Joi.number().integer().required(),
+            ayoutwat: Joi.number().integer().required(),
+            larkha: Joi.number().integer().required(),
+            sub_total: Joi.number().integer().required(),
+          })
+        )
+        .required(),
     }),
   },
 };

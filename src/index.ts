@@ -9,14 +9,21 @@ const apiRouter = Router();
 app.use(helmet());
 app.use(
   cors({
-    origin: "*",
-    allowedHeaders: [
-      "Accept-Version",
-      "Authorization",
-      "Credentials",
-      "Content-Type",
-      "Accept-Language",
-    ],
+    origin: (origin, callback) => {
+      // Allow specific origins only
+      const allowedOrigins = [
+        "http://localhost:3000", // Local development
+        "https://dev.bettainventory.com", // Production domain
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 require("dotenv").config();

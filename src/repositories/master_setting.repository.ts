@@ -3,7 +3,11 @@ import { ITodayGoldPrice } from "../instances/master_setting/create.instance";
 import { GoldTypeInstance } from "../instances/master_setting/gold_type.instance";
 import { GemTypeInstance } from "../instances/master_setting/gem_type.instance";
 import { UnitInstance } from "../instances/master_setting/unit.instance";
-import { ColorInstance, GemIconInstance } from "../instances/master_setting/color.instance";
+import {
+  ColorInstance,
+  GemIconInstance,
+} from "../instances/master_setting/color.instance";
+import GemType from "../models/gem_type.class";
 export class MasterSettingRepository {
   private prisma = new PrismaClient();
 
@@ -122,30 +126,15 @@ export class MasterSettingRepository {
 
   async getAllGemType() {
     const gemTypes = await this.prisma.m_gem_types.findMany({
+      where: {
+        del_flg: 0,
+      },
       include: {
         m_colors: true,
         m_gem_icons: true,
       },
     });
-    const castedGemTypes = gemTypes.map((gemType) => ({
-      ...gemType,
-      id: Number(gemType.id),
-      color_id: Number(gemType.color_id),
-      icon_id: Number(gemType.icon_id),
-      color: gemType.m_colors
-        ? {
-            id: Number(gemType.m_colors.id),
-            name: gemType.m_colors.name,
-          }
-        : null,
-      icon: gemType.m_gem_icons
-        ? {
-            id: Number(gemType.m_gem_icons.id),
-            path: gemType.m_gem_icons.icon_path,
-          }
-        : null,
-    }));
-    return castedGemTypes;
+    return gemTypes.map((gemType: any) => new GemType(gemType));
   }
 
   async deleteGemType(id: bigint) {
@@ -223,5 +212,3 @@ export class MasterSettingRepository {
     return gemIcons;
   }
 }
-
-

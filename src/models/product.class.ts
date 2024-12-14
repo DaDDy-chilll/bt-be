@@ -27,46 +27,25 @@ class Product {
 
   public m_product_gems?: ProductGemInstance[];
   public m_photos?: PhotoInstance[];
-  constructor(
-    code: string,
-    category_id: bigint,
-    type_id: bigint,
-    name: string,
-    length: number,
-    length_unit_id: bigint,
-    weight: number,
-    weight_unit_id: bigint,
-    size: number,
-    size_unit_id: bigint,
-    total_weight: number,
-    total_weight_unit_id: bigint,
-    gold_types_id: bigint,
-    gold_color_id: bigint,
-    gems_price: number,
-    ayoutwat: number,
-    latt_kha: number,
-    created_by: bigint,
-    m_product_gems: ProductGemInstance[],
-    m_photos: PhotoInstance[]
-  ) {
-    this.code = code;
-    this.category_id = category_id;
-    this.type_id = type_id;
-    this.name = name;
-    this.length = length;
-    this.length_unit_id = length_unit_id;
-    this.weight = weight;
-    this.weight_unit_id = weight_unit_id;
-    this.size = size;
-    this.size_unit_id = size_unit_id;
-    this.total_weight = total_weight;
-    this.total_weight_unit_id = total_weight_unit_id;
-    this.gold_types_id = gold_types_id;
-    this.gold_color_id = gold_color_id;
-    this.gems_price = gems_price;
-    this.ayoutwat = ayoutwat;
-    this.latt_kha = latt_kha;
-    this.created_by = created_by;
+  constructor(data: Product) {
+    this.code = data.code;
+    this.category_id = data.category_id;
+    this.type_id = data.type_id;
+    this.name = data.name;
+    this.length = data.length;
+    this.length_unit_id = data.length_unit_id;
+    this.weight = data.weight;
+    this.weight_unit_id = data.weight_unit_id;
+    this.size = data.size;
+    this.size_unit_id = data.size_unit_id;
+    this.total_weight = data.total_weight;
+    this.total_weight_unit_id = data.total_weight_unit_id;
+    this.gold_types_id = data.gold_types_id;
+    this.gold_color_id = data.gold_color_id;
+    this.gems_price = data.gems_price;
+    this.ayoutwat = data.ayoutwat;
+    this.latt_kha = data.latt_kha;
+    this.created_by = data.created_by;
     this.created_at = new Date().toLocaleString("en-US", {
       timeZone: "Asia/Yangon",
     });
@@ -74,8 +53,8 @@ class Product {
       timeZone: "Asia/Yangon",
     });
     this.del_flg = false;
-    this.m_product_gems = m_product_gems;
-    this.m_photos = m_photos;
+    this.m_product_gems = data.m_product_gems;
+    this.m_photos = data.m_photos;
   }
 }
 

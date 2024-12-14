@@ -11,6 +11,9 @@ import UnitRoute from "./unit.route";
 import GoldTypeRoute from "./gold_type.route";
 import MasterSettingRoute from "./master_setting.route";
 import FileUploadRoute from "./file_upload.route";
+import ToolsRoute from "./tools.route";
+import TodayGoldPriceRoute from "./today_gold_price.route";
+import OrderRoute from "./order.route";
 const router = Router();
 
 router.use("/file-uploads", FileUploadRoute);
@@ -25,4 +28,8 @@ router.use("/gold-types", GoldTypeRoute);
 router.use("/colors", ColorRoute);
 router.use("/units", UnitRoute);
 router.use("/master-settings", MasterSettingRoute);
+router.use("/tools", ToolsRoute);
+router.use("/today-gold-price", TodayGoldPriceRoute);
+router.use("/orders", OrderRoute);
+
 export default router;

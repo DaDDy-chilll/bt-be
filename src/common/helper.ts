@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 export const helper = {
   generateToken: async (
     payload: TokenPayload,
-    expiresIn: string | number = 10000
+    expiresIn: string | number = "30d"
   ) => {
     return jwt.sign(payload, process.env.JWT_SECRET || "", {
       expiresIn: expiresIn,
