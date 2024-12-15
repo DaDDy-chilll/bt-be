@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { MasterSettingService } from "../services/master_setting.service";
 const masterSetting_service = new MasterSettingService();
 
-
 // Today Gold Price
 export const createTodayGoldPrice = async (
   req: Request,
@@ -32,7 +31,10 @@ export const updateTodayGoldPrice = async (
   try {
     const id = req.params.id;
     const todayGoldPrice = req.body;
-    await masterSetting_service.updateTodayGoldPrice(todayGoldPrice, BigInt(id));
+    await masterSetting_service.updateTodayGoldPrice(
+      todayGoldPrice,
+      BigInt(id)
+    );
     return res.status(200).json({
       success: true,
       message: "Today gold price updated successfully",
@@ -45,7 +47,6 @@ export const updateTodayGoldPrice = async (
     });
   }
 };
-
 
 export const deleteTodayGoldPrice = async (
   req: Request,
@@ -88,9 +89,11 @@ export const getAllTodayGoldPrice = async (
   }
 };
 
-
 // Gold Type
-export const createGoldType = async (req: Request, res: Response): Promise<any> => {
+export const createGoldType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const goldType = req.body;
     await masterSetting_service.createGoldType(goldType);
@@ -107,7 +110,10 @@ export const createGoldType = async (req: Request, res: Response): Promise<any> 
   }
 };
 
-export const updateGoldType = async (req: Request, res: Response): Promise<any> => {
+export const updateGoldType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const id = req.params.id;
     const goldType = req.body;
@@ -125,7 +131,10 @@ export const updateGoldType = async (req: Request, res: Response): Promise<any> 
   }
 };
 
-export const deleteGoldType = async (req: Request, res: Response): Promise<any> => {
+export const deleteGoldType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const id = req.params.id;
     await masterSetting_service.deleteGoldType(BigInt(id));
@@ -142,7 +151,10 @@ export const deleteGoldType = async (req: Request, res: Response): Promise<any> 
   }
 };
 
-export const getAllGoldType = async (req: Request, res: Response): Promise<any> => {
+export const getAllGoldType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const goldType = await masterSetting_service.getAllGoldType();
     return res.status(200).json({
@@ -159,7 +171,10 @@ export const getAllGoldType = async (req: Request, res: Response): Promise<any> 
 };
 
 // Gem Type
-export const createGemType = async (req: Request, res: Response): Promise<any> => {
+export const createGemType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const gemType = req.body;
     await masterSetting_service.createGemType(gemType);
@@ -177,7 +192,10 @@ export const createGemType = async (req: Request, res: Response): Promise<any> =
   }
 };
 
-export const updateGemType = async (req: Request, res: Response): Promise<any> => {
+export const updateGemType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const id = req.params.id;
     const gemType = req.body;
@@ -185,7 +203,7 @@ export const updateGemType = async (req: Request, res: Response): Promise<any> =
     return res.status(200).json({
       success: true,
       message: "Gem type updated successfully",
-    });   
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -195,7 +213,10 @@ export const updateGemType = async (req: Request, res: Response): Promise<any> =
   }
 };
 
-export const deleteGemType = async (req: Request, res: Response): Promise<any> => {
+export const deleteGemType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const id = req.params.id;
     await masterSetting_service.deleteGemType(BigInt(id));
@@ -212,8 +233,11 @@ export const deleteGemType = async (req: Request, res: Response): Promise<any> =
   }
 };
 
-export const getAllGemType = async (req: Request, res: Response): Promise<any> => {
-  try { 
+export const getAllGemType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
     const gemType = await masterSetting_service.getAllGemType();
     return res.status(200).json({
       success: true,
@@ -237,7 +261,7 @@ export const createUnit = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json({
       success: true,
       message: "Unit created successfully",
-    });   
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -300,7 +324,10 @@ export const getAllUnit = async (req: Request, res: Response): Promise<any> => {
 };
 
 //m_colors
-export const getAllColor = async (req: Request, res: Response): Promise<any> => {
+export const getAllColor = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const color = await masterSetting_service.getAllColor();
 
@@ -318,7 +345,10 @@ export const getAllColor = async (req: Request, res: Response): Promise<any> => 
   }
 };
 
-export const createColor = async (req: Request, res: Response): Promise<any> => {
+export const createColor = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const color = req.body;
     await masterSetting_service.createColor(color);
@@ -336,7 +366,10 @@ export const createColor = async (req: Request, res: Response): Promise<any> => 
 };
 
 //m_gem_icons
-export const getAllGemIcon = async (req: Request, res: Response): Promise<any> => {
+export const getAllGemIcon = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const gemIcon = await masterSetting_service.getAllGemIcon();
     return res.status(200).json({
@@ -352,7 +385,10 @@ export const getAllGemIcon = async (req: Request, res: Response): Promise<any> =
   }
 };
 
-export const createGemIcon = async (req: Request, res: Response): Promise<any> => {
+export const createGemIcon = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const gemIcon = req.body;
     await masterSetting_service.createGemIcon(gemIcon);
@@ -364,6 +400,46 @@ export const createGemIcon = async (req: Request, res: Response): Promise<any> =
     return res.status(500).json({
       success: false,
       message: "Error creating gem icon",
+      error: error,
+    });
+  }
+};
+
+//product type
+export const getAllProductType = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const productType = await masterSetting_service.getAllProductType();
+    return res.status(200).json({
+      success: true,
+      data: productType,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error getting all product type",
+      error: error,
+    });
+  }
+};
+
+//product category
+export const getAllProductCategory = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const productCategory = await masterSetting_service.getAllProductCategory();
+    return res.status(200).json({
+      success: true,
+      data: productCategory,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error getting all product category",
       error: error,
     });
   }

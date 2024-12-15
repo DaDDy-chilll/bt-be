@@ -7,7 +7,13 @@ import {
   ColorInstance,
   GemIconInstance,
 } from "../instances/master_setting/color.instance";
-import GemType from "../models/gem_type.class";
+import { GemIcon, GemType } from "../models/gem_type.class";
+import GoldType from "../models/gold_type.class";
+import TodayGoldPrice from "../models/today_gold_price.class";
+import Color from "../models/color.class";
+import ProductType from "../models/product_type.class";
+import ProductCategory from "../models/product_category.class";
+
 export class MasterSettingRepository {
   private prisma = new PrismaClient();
 
@@ -27,27 +33,9 @@ export class MasterSettingRepository {
         m_units: true,
       },
     });
-    const castedMasterSettings = masterSettings.map((masterSetting) => ({
-      ...masterSetting,
-      id: Number(masterSetting.id),
-      gold_types_id: Number(masterSetting.gold_types_id),
-      unit_id: Number(masterSetting.unit_id),
-      gold_type: masterSetting.m_gold_types
-        ? {
-            id: Number(masterSetting.m_gold_types.id),
-            name: masterSetting.m_gold_types.name,
-          }
-        : null,
-      unit: masterSetting.m_units
-        ? {
-            id: Number(masterSetting.m_units.id),
-            name: masterSetting.m_units.name,
-            symbol: masterSetting.m_units.symbol,
-            type: masterSetting.m_units.type,
-          }
-        : null,
-    }));
-    return castedMasterSettings;
+    return masterSettings.map(
+      (masterSetting: any) => new TodayGoldPrice(masterSetting)
+    );
   }
 
   async updateTodayGoldPrice(todayGoldPrice: ITodayGoldPrice, id: bigint) {
@@ -90,13 +78,12 @@ export class MasterSettingRepository {
   }
 
   async getAllGoldType() {
-    const goldTypes = await this.prisma.m_gold_types.findMany();
-    console.log(goldTypes);
-    const castedGoldTypes = goldTypes.map((goldType) => ({
-      ...goldType,
-      id: Number(goldType.id),
-    }));
-    return castedGoldTypes;
+    const goldTypes = await this.prisma.m_gold_types.findMany({
+      where: {
+        del_flg: 0,
+      },
+    });
+    return goldTypes.map((goldType: any) => new GoldType(goldType));
   }
 
   async deleteGoldType(id: bigint) {
@@ -187,11 +174,7 @@ export class MasterSettingRepository {
   //m_colors
   async getAllColor() {
     const colors = await this.prisma.m_colors.findMany();
-    const castedColors = colors.map((color) => ({
-      ...color,
-      id: Number(color.id),
-    }));
-    return castedColors;
+    return colors.map((color: any) => new Color(color));
   }
 
   async createColor(color: ColorInstance) {
@@ -203,11 +186,7 @@ export class MasterSettingRepository {
   //m_gem_icons
   async getAllGemIcon() {
     const gemIcons = await this.prisma.m_gem_icons.findMany();
-    const castedGemIcons = gemIcons.map((gemIcon) => ({
-      ...gemIcon,
-      id: Number(gemIcon.id),
-    }));
-    return castedGemIcons;
+    return gemIcons.map((gemIcon: any) => new GemIcon(gemIcon));
   }
 
   async createGemIcon(gemIcon: GemIconInstance) {
@@ -215,5 +194,19 @@ export class MasterSettingRepository {
       data: gemIcon,
     });
     return gemIcons;
+  }
+
+  //m_product_types
+  async getAllProductType() {
+    const productTypes = await this.prisma.m_product_types.findMany();
+    return productTypes.map((productType: any) => new ProductType(productType));
+  }
+
+  //m_product_categories
+  async getAllProductCategory() {
+    const productCategories = await this.prisma.m_product_categories.findMany();
+    return productCategories.map(
+      (productCategory: any) => new ProductCategory(productCategory)
+    );
   }
 }

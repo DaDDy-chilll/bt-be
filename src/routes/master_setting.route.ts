@@ -86,7 +86,7 @@ router.delete(
 );
 
 //m_colors
-router.get("/color", AuthGuard, MasterSettingController.getAllColor);
+router.get("/colors", AuthGuard, MasterSettingController.getAllColor);
 router.post(
   "/color",
   AuthGuard,
@@ -101,6 +101,20 @@ router.post(
   AuthGuard,
   validateBody(schema.masterSetting.createGemIcon),
   MasterSettingController.createGemIcon
+);
+
+//product type
+router.get(
+  "/product-type",
+  AuthGuard,
+  MasterSettingController.getAllProductType
+);
+
+//product category
+router.get(
+  "/product-category",
+  AuthGuard,
+  MasterSettingController.getAllProductCategory
 );
 
 export default router;
