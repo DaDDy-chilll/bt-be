@@ -3,11 +3,13 @@ class Unit {
   public id?: number | undefined;
   public name?: string;
   public symbol?: string;
+  public type?: string;
 
   constructor(unit: Unit) {
     this.id = Number(unit.id);
     this.name = unit.name;
     this.symbol = unit.symbol;
+    this.type = unit.type;
   }
 }
 class GoldTypes {
@@ -23,7 +25,7 @@ class TodayGoldPrice {
   public id?: number | undefined;
   public unit_id: number;
   public gold_types_id: number;
-  public gold_weight: string;
+  public gold_weight: number;
   public other_price?: number;
   public pyinpa_price?: number;
   public ygea_price?: number;
@@ -55,19 +57,14 @@ class TodayGoldPrice {
         })
       : undefined;
     this.del_flg = today_gold_price.del_flg;
+
+
     this.m_units = today_gold_price.m_units
       ? new Unit(today_gold_price.m_units)
       : undefined;
     this.m_gold_types = today_gold_price.m_gold_types
       ? new GoldTypes(today_gold_price.m_gold_types)
       : undefined;
-  }
-  getTodayGoldPrice(): TodayGoldPrice {
-    this.id = Number(this.id);
-    this.unit_id = Number(this.unit_id);
-    this.gold_types_id = Number(this.gold_types_id);
-
-    return this;
   }
 }
 

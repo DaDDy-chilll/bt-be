@@ -86,7 +86,7 @@ router.delete(
 );
 
 //m_colors
-router.get("/color", AuthGuard, MasterSettingController.getAllColor);
+router.get("/colors", AuthGuard, MasterSettingController.getAllColor);
 router.post(
   "/color",
   AuthGuard,
@@ -111,5 +111,19 @@ router.get("/city/:state_id", AuthGuard, MasterSettingController.getAllCity);
 
 //m_levels
 router.get("/level", AuthGuard, MasterSettingController.getAllLevel);
+
+//product type
+router.get(
+  "/product-type",
+  AuthGuard,
+  MasterSettingController.getAllProductType
+);
+
+//product category
+router.get(
+  "/product-category",
+  AuthGuard,
+  MasterSettingController.getAllProductCategory
+);
 
 export default router;

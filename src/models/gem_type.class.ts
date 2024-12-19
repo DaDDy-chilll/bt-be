@@ -48,4 +48,4 @@ class GemType {
   }
 }
 
-export default GemType;
+export { GemIcon, GemType };

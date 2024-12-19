@@ -1,21 +1,19 @@
 import { PrismaClient } from "@prisma/client";
+import GoldType from "../models/gold_type.class";
 
 export class GoldTypeRepository {
   private prisma = new PrismaClient();
 
   async getAll(page: number, limit: number) {
     const goldTypes = await this.prisma.m_gold_types.findMany({
+      where: {
+        del_flg: 0,
+      },
       skip: (page - 1) * limit,
       take: limit,
     });
 
-    //serialize
-    const castedGoldTypes = goldTypes.map((goldType) => ({
-      ...goldType,
-      id: Number(goldType.id),
-    }));
-
-    return castedGoldTypes;
+    return goldTypes.map((goldType: any) => new GoldType(goldType));
   }
 
   async getAllCount(): Promise<number> {

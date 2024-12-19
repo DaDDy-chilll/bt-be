@@ -3,7 +3,10 @@ import { MasterSettingRepository } from "../repositories/master_setting.reposito
 import { GoldTypeInstance } from "../instances/master_setting/gold_type.instance";
 import { GemTypeInstance } from "../instances/master_setting/gem_type.instance";
 import { UnitInstance } from "../instances/master_setting/unit.instance";
-import { ColorInstance, GemIconInstance } from "../instances/master_setting/color.instance";
+import {
+  ColorInstance,
+  GemIconInstance,
+} from "../instances/master_setting/color.instance";
 export class MasterSettingService {
   private masterSettingRepository = new MasterSettingRepository();
 
@@ -111,5 +114,15 @@ export class MasterSettingService {
   //m_levels
   async getAllLevel() {
     return await this.masterSettingRepository.getAllLevel();
+  }
+
+  //m_product_types
+  async getAllProductType() {
+    return await this.masterSettingRepository.getAllProductType();
+  }
+
+  //m_product_categories
+  async getAllProductCategory() {
+    return await this.masterSettingRepository.getAllProductCategory();
   }
 }
