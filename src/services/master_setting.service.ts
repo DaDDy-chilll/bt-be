@@ -97,4 +97,19 @@ export class MasterSettingService {
   async createGemIcon(gemIcon: GemIconInstance) {
     return await this.masterSettingRepository.createGemIcon(gemIcon);
   }
+
+  //m_states
+  async getAllState() {
+    return await this.masterSettingRepository.getAllState();
+  }
+
+  //m_cities
+  async getAllCity(state_id: number) {
+    return await this.masterSettingRepository.getAllCity(state_id);
+  }
+
+  //m_levels
+  async getAllLevel() {
+    return await this.masterSettingRepository.getAllLevel();
+  }
 }

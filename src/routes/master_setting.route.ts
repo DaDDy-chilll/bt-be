@@ -103,4 +103,13 @@ router.post(
   MasterSettingController.createGemIcon
 );
 
+//m_states
+router.get("/state", AuthGuard, MasterSettingController.getAllState);
+
+//m_cities
+router.get("/city/:state_id", AuthGuard, MasterSettingController.getAllCity);
+
+//m_levels
+router.get("/level", AuthGuard, MasterSettingController.getAllLevel);
+
 export default router;

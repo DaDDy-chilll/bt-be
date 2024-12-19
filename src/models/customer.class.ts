@@ -7,6 +7,8 @@ export class Customer {
   first_name: string;
   last_name: string;
   phone: string;
+  status: number;
+  memo: string;
   nrc: string;
   email: string;
   social: string;
@@ -22,6 +24,8 @@ export class Customer {
     this.last_name = data.last_name;
     this.phone = data.phone;
     this.nrc = data.nrc;
+    this.status = data.status;
+    this.memo = data.memo;
     this.email = data.email;
     this.social = data.social;
     this.level_id = Number(data.level_id);

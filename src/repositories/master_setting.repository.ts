@@ -26,6 +26,9 @@ export class MasterSettingRepository {
         m_gold_types: true,
         m_units: true,
       },
+      where: {
+        del_flg: 0,
+      },
     });
     const castedMasterSettings = masterSettings.map((masterSetting) => ({
       ...masterSetting,
@@ -90,8 +93,11 @@ export class MasterSettingRepository {
   }
 
   async getAllGoldType() {
-    const goldTypes = await this.prisma.m_gold_types.findMany();
-    console.log(goldTypes);
+    const goldTypes = await this.prisma.m_gold_types.findMany({
+      where: {
+        del_flg: 0,
+      },
+    });
     const castedGoldTypes = goldTypes.map((goldType) => ({
       ...goldType,
       id: Number(goldType.id),
@@ -186,7 +192,11 @@ export class MasterSettingRepository {
 
   //m_colors
   async getAllColor() {
-    const colors = await this.prisma.m_colors.findMany();
+    const colors = await this.prisma.m_colors.findMany({
+      where: {
+        del_flg: 0,
+      },
+    });
     const castedColors = colors.map((color) => ({
       ...color,
       id: Number(color.id),
@@ -202,7 +212,11 @@ export class MasterSettingRepository {
   }
   //m_gem_icons
   async getAllGemIcon() {
-    const gemIcons = await this.prisma.m_gem_icons.findMany();
+    const gemIcons = await this.prisma.m_gem_icons.findMany({
+      where: {
+        del_flg: 0,
+      },
+    });
     const castedGemIcons = gemIcons.map((gemIcon) => ({
       ...gemIcon,
       id: Number(gemIcon.id),
@@ -215,5 +229,48 @@ export class MasterSettingRepository {
       data: gemIcon,
     });
     return gemIcons;
+  }
+
+  //m_states
+  async getAllState() {
+    const states = await this.prisma.m_states.findMany({
+      where: {
+        del_flg: 0
+      },
+    });
+    const castedStates = states.map((state) => ({
+      ...state,
+      id: Number(state.id),
+    }));
+    return castedStates;
+  }
+
+  //m_cities
+  async getAllCity(state_id: number) {
+    const cities = await this.prisma.m_cities.findMany({
+      where: {
+        del_flg: 0,
+        state_id: state_id,
+      },
+    });
+    const castedCities = cities.map((city) => ({
+      ...city,
+      id: Number(city.id),
+    }));
+    return castedCities;
+  }
+
+  //m_levels
+  async getAllLevel() {
+    const levels = await this.prisma.m_levels.findMany({
+      where: {
+        del_flg: 0,
+      },
+    });
+    const castedLevels = levels.map((level) => ({
+      ...level,
+      id: Number(level.id),
+    }));
+    return castedLevels;
   }
 }

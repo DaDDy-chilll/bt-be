@@ -368,3 +368,55 @@ export const createGemIcon = async (req: Request, res: Response): Promise<any> =
     });
   }
 };
+
+//m_states
+export const getAllState = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const state = await masterSetting_service.getAllState();
+    return res.status(200).json({
+      success: true,
+      data: state,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error getting all state",
+      error: error,
+    });
+  }
+};
+
+//m_cities
+export const getAllCity = async (req: Request, res: Response): Promise<any> => {
+  const state_id = req.params.state_id;
+  try {
+    const city = await masterSetting_service.getAllCity(Number(state_id));
+    return res.status(200).json({
+      success: true,
+      data: city,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error getting all city",
+      error: error,
+    });
+  } 
+};
+
+//m_levels
+export const getAllLevel = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const level = await masterSetting_service.getAllLevel();
+    return res.status(200).json({
+      success: true,
+      data: level,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error getting all level",
+      error: error,
+    });
+  }
+};

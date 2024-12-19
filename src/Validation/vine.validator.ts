@@ -296,6 +296,104 @@ export const schema = {
       }),
     }),
   },
+  supplier: {
+    createMemo: Joi.object({
+      memo: Joi.string().required().messages({
+        "any.required": "Memo is required",
+        "string.base": "Memo must be string",
+      }),
+      supplier_id: Joi.number().required().messages({
+        "any.required": "Supplier ID is required",
+        "number.base": "Supplier ID must be number",
+      }),
+    }),
+    createSupplier: Joi.object({
+      name: Joi.string().required().messages({
+        "any.required": "Name is required",
+        "string.base": "Name must be string",
+      }),
+      branch: Joi.string().messages({
+        "string.base": "Branch must be string",
+      }),
+      contact_name: Joi.string().required().messages({
+        "any.required": "Contact name is required",
+        "string.base": "Contact name must be string",
+      }),
+      contact_start_date: Joi.date().required().messages({
+        "any.required": "Contact start date is required",
+        "date.base": "Contact start date must be date",
+      }),
+      email: Joi.string().email().required().messages({
+        "any.required": "Email is required",
+        "string.base": "Email must be string",
+        "string.email": "Invalid email",
+      }),
+      phone_one: Joi.string().required().messages({
+        "any.required": "Phone one is required",
+        "string.base": "Phone one must be string",
+      }),
+      phone_two: Joi.string().messages({
+        "string.base": "Phone two must be string",
+      }),
+      state_id: Joi.number().required().messages({
+        "any.required": "State is required",
+        "number.base": "State must be number",
+      }),
+      city_id: Joi.number().required().messages({
+        "any.required": "City is required",
+        "number.base": "City must be number",
+      }),
+      address: Joi.string().required().messages({
+        "any.required": "Address is required",
+        "string.base": "Address must be string",
+      }),
+      website: Joi.string().messages({
+        "string.base": "Website must be string",
+      }),
+      social: Joi.string().messages({
+        "string.base": "Social must be string",
+      }),
+    }),
+  },
+  customer: {
+    createCustomer: Joi.object({
+      first_name: Joi.string().required().messages({
+        "any.required": "First name is required",
+        "string.base": "First name must be string",
+      }),
+      last_name: Joi.string().required().messages({
+        "any.required": "Last name is required",
+        "string.base": "Last name must be string",
+      }),
+      phone: Joi.string().required().messages({
+        "any.required": "Phone is required",
+        "string.base": "Phone must be string",
+      }), 
+      email: Joi.string().email().required().messages({
+        "any.required": "Email is required",
+        "string.base": "Email must be string",
+        "string.email": "Invalid email",
+      }),
+      nrc: Joi.string().required().messages({
+        "any.required": "NRC is required",
+        "string.base": "NRC must be string",
+      }),
+      status: Joi.number().required().messages({
+        "any.required": "Status is required",
+        "number.base": "Status must be number",
+      }),
+      memo: Joi.string().messages({
+        "string.base": "Memo must be string",
+      }),
+      social: Joi.string().messages({
+        "string.base": "Social must be string",
+      }),
+      level_id: Joi.number().required().messages({
+        "any.required": "Level is required",
+        "number.base": "Level must be number",
+      }),
+    }), 
+  },
 };
 
 export const validateBody = (schema: Joi.Schema) => {
