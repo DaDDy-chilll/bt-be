@@ -224,19 +224,18 @@ export const schema = {
   },
   masterSetting: {
     createTodayGoldPrice: Joi.object({
-     
       gold_types_id: Joi.number().required().messages({
         "any.required": "Gold type is required",
         "number.base": "Gold type must be number",
       }),
       gold_weight: Joi.number().required().messages({
-        "any.required": "Gold weight is required" 
+        "any.required": "Gold weight is required",
       }),
       unit_id: Joi.number().required().messages({
         "any.required": "Unit is required",
         "number.base": "Unit must be number",
       }),
-      default : Joi.number().required().messages({
+      default: Joi.number().required().messages({
         "any.required": "Default price is required",
       }),
       other_price: Joi.number().required().messages({

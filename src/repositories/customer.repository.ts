@@ -22,21 +22,19 @@ export class CustomerRepository {
       del_flg: 0,
     };
 
-
-    if (filters) {
+    if (Object.keys(filters).length > 0) {
       if (filters.first_name) {
         where.first_name = {
           contains: filters.first_name,
         };
       }
-      
+
       if (filters.last_name) {
         where.last_name = {
           contains: filters.last_name,
         };
       }
 
-   
       if (filters.email) {
         where.email = {
           contains: filters.email,
@@ -56,8 +54,6 @@ export class CustomerRepository {
           contains: filters.nrc,
         };
       }
-
-   
     }
 
     const customers = await this.prisma.m_customers.findMany({
@@ -68,8 +64,8 @@ export class CustomerRepository {
         m_levels: true,
       },
       orderBy: {
-        created_at: 'desc'
-      }
+        created_at: "desc",
+      },
     });
 
     return customers.map((customer) => new Customer(customer as Customer));

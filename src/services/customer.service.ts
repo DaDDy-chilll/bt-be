@@ -1,3 +1,4 @@
+import Customer from "../models/customer.class";
 import { CustomerRepository } from "../repositories/customer.repository";
 import { ICustomer } from "../instances/customer/customer.instance";
 export class CustomerService {
@@ -9,6 +10,7 @@ export class CustomerService {
   }
 
   async getAllCustomers(page: number, limit: number, filters: any) {
+    console.log(filters);
     return await this.customerRepository.getAllCustomers(page, limit, filters);
   }
 

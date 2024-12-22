@@ -14,8 +14,8 @@ import FileUploadRoute from "./file_upload.route";
 import ToolsRoute from "./tools.route";
 import TodayGoldPriceRoute from "./today_gold_price.route";
 import OrderRoute from "./order.route";
-import SupplierRoute from "./supplier.route";
 import CustomerRoute from "./customer.route";
+import SupplierRoute from "./supplier.route";
 const router = Router();
 
 router.use("/file-uploads", FileUploadRoute);
