@@ -16,6 +16,7 @@ import TodayGoldPriceRoute from "./today_gold_price.route";
 import OrderRoute from "./order.route";
 import CustomerRoute from "./customer.route";
 import SupplierRoute from "./supplier.route";
+import warehouseRoute from "./warehouse.route";
 const router = Router();
 
 router.use("/file-uploads", FileUploadRoute);
@@ -35,5 +36,6 @@ router.use("/today-gold-price", TodayGoldPriceRoute);
 router.use("/orders", OrderRoute);
 router.use("/suppliers", SupplierRoute);
 router.use("/customers", CustomerRoute);
+router.use("/warehouses", warehouseRoute);
 
 export default router;
